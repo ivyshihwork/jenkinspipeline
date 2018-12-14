@@ -1,10 +1,10 @@
 pipeline {
     agent any
-    
-    parameters { 
+
+    parameters {
          string(name: 'tomcat_dev', defaultValue: '35.166.210.154', description: 'Staging Server')
          string(name: 'tomcat_prod', defaultValue: '34.209.233.6', description: 'Production Server')
-    } 
+    }
 
     triggers {
          pollSCM('* * * * *') // Polling Source Control
@@ -13,7 +13,11 @@ pipeline {
 stages{
         stage('Build'){
             steps {
-                sh 'mvn clean package'
+              echo 'Now Building...'
+            // Unix
+                sh '/Users/ivy.shih/tools/apache-maven-3.6.0/bin/mvn clean package'
+            // Winblows
+            //    bat '"C:\\Program Files\\Tools\\apache-maven-3.5.4\\bin\\mvn.cmd" clean package'
             }
             post {
                 success {
