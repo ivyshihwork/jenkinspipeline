@@ -36,12 +36,22 @@ stages{
                     }
                 }
 
-                //stage ("Deploy to Production"){
-              //      steps {
+                stage ("Deploy to Production"){
+                    steps {
               //          //sh "scp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
-              //          build job: 'deploy2prod'
+                        build job: 'deploy2prod'
+
             //        }
-          //  stage    }
+                    post {
+                        success {
+                          echo 'Code deployed to Production.'
+                        }
+                        failure {
+                          echo 'Deployment failed'
+                        }
+                    }
+
+                }
           // parelell  }
         }
     }
