@@ -28,7 +28,6 @@ stages{
         }
 
         stage ('Deployments'){
-            //parallel{
                 stage ('Deploy to Staging'){
                     steps {
                         //sh "scp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
@@ -41,7 +40,7 @@ stages{
               //          //sh "scp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
                         build job: 'deploy2prod'
 
-            //        }
+                    }
                     post {
                         success {
                           echo 'Code deployed to Production.'
@@ -52,7 +51,6 @@ stages{
                     }
 
                 }
-          // parelell  }
         }
     }
 }
