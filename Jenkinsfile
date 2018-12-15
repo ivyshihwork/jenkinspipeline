@@ -26,31 +26,27 @@ stages{
                 }
             }
         }
-
-        stage ('Deployments'){
-                stage ('Deploy to Staging'){
-                    steps {
-                        //sh "scp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
-                        build job: 'deploy2stage'
-                    }
-                }
-
-                stage ("Deploy to Production"){
-                    steps {
-              //          //sh "scp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
-                        build job: 'deploy2prod'
-
-                    }
-                    post {
-                        success {
-                          echo 'Code deployed to Production.'
-                        }
-                        failure {
-                          echo 'Deployment failed'
-                        }
-                    }
-
-                }
+        stage ('Deploy to Staging'){
+            steps {
+                //sh "scp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
+                build job: 'deploy2stage'
+            }
         }
-    }
+
+        stage ("Deploy to Production"){
+              steps {
+               //sh "scp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
+                build job: 'deploy2prod'
+              }
+              post {
+                  success {
+                    echo 'Code deployed to Production.'
+                  }
+                  failure {
+                    echo 'Deployment failed'
+                  }
+              }
+        }
+ }
+
 }
